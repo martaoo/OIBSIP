@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secured Page</title>
+</head>
+<body>
+    <h1>Secured Page</h1>
+    <button id="accessPage">Access Secured Page</button>
+    <div id="message"></div>
+    <script>
+        document.getElementById("accessPage").addEventListener("click", async () => {
+            const token = localStorage.getItem("token");
+
+            const response = await fetch("/secured", {
+                method: "GET",
+                headers: { Authorization: token },
+            });
+
+            const result = await response.json();
+            document.getElementById("message").textContent = result.message;
+        });
+    </script>
+</body>
+</html>
